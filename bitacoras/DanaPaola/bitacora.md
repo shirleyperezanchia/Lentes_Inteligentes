@@ -2,7 +2,7 @@
 
 # Bitácora de: Nombre completo del estudiante
 
-## Semana 1 [DD/MM/AAAA] a [DD/MM/AAAA]
+## Semana 1 [01/10/2026] a [06/10/2026]
 
 ### Actividades realizadas
 
