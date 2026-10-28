@@ -17,9 +17,8 @@ Desarrollar un prototipo de lentes inteligentes basado en ESP32 que permita dete
 - Medición de distancias y generación de alertas según la proximidad y el movimiento relativo de los obstáculos.
 - Reconocimiento de determinadas categorías de objetos mediante ESP32-CAM.
 - Alertas mediante sonidos y vibraciones.
-- Comunicación de objetos reconocidos mediante mensajes de voz en un dispositivo móvil.
 - Registro de detecciones en un servidor local.
-- Alimentación portátil mediante batería.
+- Alimentación portátil mediante conexión por USB desde una computadora hacia el protoboard
 
 ## Tecnologías y componentes previstos
 
@@ -27,7 +26,6 @@ Desarrollar un prototipo de lentes inteligentes basado en ESP32 que permita dete
 - ESP32-CAM.
 - Sensor ultrasónico.
 - Componentes de alerta sonora y vibratoria.
-- Batería recargable.
 - Comunicación mediante red local.
 - Servidor y base de datos local.
 
