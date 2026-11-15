@@ -502,6 +502,7 @@ Forma de trabajo: el proyecto lo trabajamos en equipo con Alejandra Quintanilla 
 - Revisé y corregí algunas partes del artículo para que coincidieran con el prototipo final.
 - Revisé que las citas y las referencias siguieran el formato IEEE.
 - Actualicé el diagrama de arquitectura en draw.io con los cambios que propuso el equipo.
+- Antes de subir mi bitácora, la comparé con las de mis compañeras para que lo que contamos de cada reunión coincidiera.
 
 ### Avances
 
