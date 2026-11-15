@@ -1,0 +1,7 @@
+# Contraseñas del Wi-Fi de los sketches
+credenciales.h
+
+# Servidor: entorno virtual, caché de Python y base de datos local
+venv/
+__pycache__/
+*.db
