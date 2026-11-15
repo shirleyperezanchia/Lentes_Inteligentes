@@ -1,0 +1,435 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Lentes Inteligentes</title>
+  <style>
+    :root {
+      --fondo: #f3f5f9;
+      --tarjeta: #ffffff;
+      --texto: #1e2430;
+      --suave: #6b7385;
+      --borde: #e3e7ef;
+      --primario: #4f46e5;
+      --persona: #e11d48;
+      --animal: #d97706;
+      --obstaculo: #2563eb;
+      --peligro: #dc2626;
+    }
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --fondo: #0f1320;
+        --tarjeta: #181d2c;
+        --texto: #e8ebf3;
+        --suave: #9aa3b8;
+        --borde: #2a3145;
+      }
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: "Segoe UI", system-ui, sans-serif;
+      background: var(--fondo);
+      color: var(--texto);
+    }
+
+    header {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      justify-content: space-between;
+      align-items: center;
+      padding: 20px 24px;
+      background: var(--tarjeta);
+      border-bottom: 1px solid var(--borde);
+    }
+    header h1 { margin: 0; font-size: 1.4rem; }
+    header p { margin: 2px 0 0; color: var(--suave); font-size: .9rem; }
+    .acciones { display: flex; gap: 10px; flex-wrap: wrap; align-items: center; }
+
+    .estado {
+      padding: 6px 12px;
+      border-radius: 999px;
+      font-size: .85rem;
+      font-weight: 600;
+      background: var(--fondo);
+      border: 1px solid var(--borde);
+    }
+    .estado.on { background: #dcfce7; color: #166534; border-color: #bbf7d0; }
+    .estado.off { background: #fee2e2; color: #991b1b; border-color: #fecaca; }
+
+    .boton {
+      border: 1px solid var(--borde);
+      background: var(--tarjeta);
+      color: var(--texto);
+      padding: 8px 14px;
+      border-radius: 10px;
+      cursor: pointer;
+      font-weight: 600;
+      font-size: .9rem;
+      text-decoration: none;
+    }
+    .boton:hover { border-color: var(--primario); }
+    .boton.activo { background: var(--primario); color: white; border-color: var(--primario); }
+
+    main {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 24px 16px;
+      display: grid;
+      gap: 20px;
+    }
+
+    .tarjetas {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+      gap: 16px;
+    }
+    .tarjeta, .panel {
+      background: var(--tarjeta);
+      border: 1px solid var(--borde);
+      border-radius: 16px;
+      padding: 18px;
+    }
+    .etiqueta { color: var(--suave); font-size: .85rem; }
+    .valor { font-size: 1.8rem; font-weight: 700; margin-top: 6px; }
+    .panel h2 { margin: 0 0 14px; font-size: 1.05rem; }
+    .ultima { font-size: 1.1rem; line-height: 1.8; }
+
+    .grafica { display: flex; align-items: flex-end; gap: 4px; height: 160px; }
+    .barra-col {
+      flex: 1;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      align-items: center;
+    }
+    .barra {
+      width: 100%;
+      min-height: 2px;
+      background: var(--primario);
+      border-radius: 4px 4px 0 0;
+      transition: height .4s;
+    }
+    .hora { font-size: .65rem; color: var(--suave); margin-top: 4px; height: 12px; }
+
+    .filtros { display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 12px; }
+    select, input {
+      padding: 8px 10px;
+      border-radius: 10px;
+      border: 1px solid var(--borde);
+      background: var(--fondo);
+      color: var(--texto);
+      font-size: .9rem;
+    }
+
+    .tabla-cont { overflow-x: auto; }
+    table { width: 100%; border-collapse: collapse; }
+    th, td { padding: 10px 12px; text-align: left; border-bottom: 1px solid var(--borde); font-size: .92rem; }
+    th { color: var(--suave); font-weight: 600; font-size: .78rem; text-transform: uppercase; }
+    .vacio { text-align: center; color: var(--suave); padding: 30px; }
+    .camara { display: block; width: 100%; max-width: 640px; margin: 0 auto; border-radius: 12px; }
+    .camara[hidden] { display: none; }
+
+    .chip { padding: 3px 10px; border-radius: 999px; font-size: .8rem; font-weight: 600; color: white; }
+    .chip.persona { background: var(--persona); }
+    .chip.animal { background: var(--animal); }
+    .chip.obstaculo { background: var(--obstaculo); }
+    .dist-cerca { color: var(--peligro); font-weight: 700; }
+    .dist-media { color: var(--animal); font-weight: 600; }
+    .dist-lejos { color: var(--suave); }
+
+    .paginacion { display: flex; justify-content: center; align-items: center; gap: 12px; margin-top: 14px; flex-wrap: wrap; }
+    .paginacion span { color: var(--suave); font-size: .9rem; }
+    .boton:disabled { opacity: .4; cursor: default; border-color: var(--borde); }
+
+    /* Ventana para confirmar "Limpiar datos" */
+    .aviso {
+      border: 1.5px solid var(--peligro);
+      border-radius: 20px;
+      padding: 28px 26px 22px;
+      width: min(400px, calc(100% - 32px));
+      background: var(--tarjeta);
+      color: var(--texto);
+      text-align: center;
+      box-shadow: 0 20px 50px rgba(0, 0, 0, .3);
+      overflow: hidden;
+    }
+    .aviso[open] { animation: aparecer .18s ease-out; }
+    .aviso::backdrop { background: rgba(15, 19, 32, .55); backdrop-filter: blur(3px); }
+    @keyframes aparecer { from { opacity: 0; transform: scale(.95); } to { opacity: 1; transform: scale(1); } }
+    .aviso-icono {
+      width: 56px; height: 56px; margin: 0 auto 12px;
+      display: grid; place-items: center;
+      border-radius: 50%;
+      background: #fee2e2;
+      font-size: 1.6rem;
+    }
+    .aviso h3 { margin: 0 0 8px; font-size: 1.15rem; }
+    .aviso p { margin: 0 0 20px; color: var(--suave); font-size: .92rem; line-height: 1.5; }
+    .aviso-botones { display: flex; gap: 10px; justify-content: center; flex-wrap: wrap; }
+    .boton.peligro { background: var(--peligro); color: white; border-color: var(--peligro); }
+    .boton.peligro:hover { filter: brightness(1.1); }
+
+    /* Mensajito de "listo" abajo de la pantalla */
+    .notificacion {
+      position: fixed; left: 50%; bottom: 24px;
+      transform: translate(-50%, 20px);
+      background: #166534; color: white;
+      padding: 12px 20px; border-radius: 12px;
+      font-weight: 600; font-size: .92rem;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, .25);
+      opacity: 0; pointer-events: none;
+      transition: opacity .25s, transform .25s;
+    }
+    .notificacion.ver { opacity: 1; transform: translate(-50%, 0); }
+  </style>
+</head>
+<body>
+  <header>
+    <div>
+      <h1>👓 Lentes Inteligentes</h1>
+      <p>Registro de detecciones en tiempo real</p>
+    </div>
+    <div class="acciones">
+      <span id="estado" class="estado off">● Sin conexión</span>
+      <span id="estadoCamara" class="estado off">📷 Cámara sin conexión</span>
+      <span id="bateria" class="estado" hidden></span>
+      <a class="boton" href="/api/exportar">⬇ Exportar CSV</a>
+    </div>
+  </header>
+
+  <main>
+    <section class="tarjetas">
+      <div class="tarjeta"><div class="etiqueta">Detecciones hoy</div><div class="valor" id="totalHoy">0</div></div>
+      <div class="tarjeta"><div class="etiqueta">🧍 Personas</div><div class="valor" id="personas">0</div></div>
+      <div class="tarjeta"><div class="etiqueta">🐕 Animales</div><div class="valor" id="animales">0</div></div>
+      <div class="tarjeta"><div class="etiqueta">🚧 Obstáculos</div><div class="valor" id="obstaculos">0</div></div>
+      <div class="tarjeta"><div class="etiqueta">📏 Más cercano hoy</div><div class="valor" id="cercano">–</div></div>
+    </section>
+
+    <section class="panel">
+      <h2>Última detección</h2>
+      <div id="ultima" class="ultima">Todavía no hay detecciones hoy</div>
+    </section>
+
+    <section class="panel">
+      <h2>📷 Lo que ve la cámara</h2>
+      <img id="camara" class="camara" alt="Última foto analizada por YOLO" hidden>
+      <div id="sinCamara" class="vacio">Todavía no llegan fotos de la cámara</div>
+    </section>
+
+    <section class="panel">
+      <h2>Detecciones por hora (hoy)</h2>
+      <div id="grafica" class="grafica"></div>
+    </section>
+
+    <section class="panel">
+      <h2>Historial</h2>
+      <div class="filtros">
+        <select id="filtroTipo">
+          <option value="">Todos los tipos</option>
+          <option value="persona">Personas</option>
+          <option value="animal">Animales</option>
+          <option value="obstaculo">Obstáculos</option>
+        </select>
+        <input type="date" id="filtroFecha">
+        <select id="filtroHora">
+          <option value="">Todas las horas</option>
+        </select>
+        <button class="boton" id="limpiar">Limpiar filtros</button>
+        <button class="boton" id="limpiarDatos">🗑 Limpiar datos</button>
+      </div>
+      <div class="tabla-cont">
+        <table>
+          <thead>
+            <tr><th>Fecha y hora</th><th>Tipo</th><th>Distancia</th></tr>
+          </thead>
+          <tbody id="tabla"></tbody>
+        </table>
+      </div>
+      <div class="paginacion">
+        <button class="boton" id="anterior">← Anterior</button>
+        <span id="infoPagina">Página 1 de 1</span>
+        <button class="boton" id="siguiente">Siguiente →</button>
+      </div>
+    </section>
+  </main>
+
+  <dialog class="aviso" id="avisoBorrar">
+    <h3>¿Borrar todas las detecciones?</h3>
+    <p>Esto no se puede deshacer.<br>Si quieren guardarlas, primero usen <b>Exportar CSV</b>.</p>
+    <div class="aviso-botones">
+      <button class="boton" id="cancelarBorrar">Cancelar</button>
+      <button class="boton peligro" id="confirmarBorrar">Sí, borrar</button>
+    </div>
+  </dialog>
+  <div class="notificacion" id="notificacion"></div>
+
+  <script>
+    const $ = id => document.getElementById(id);
+    const NOMBRES = { persona: "Persona", animal: "Animal", obstaculo: "Obstáculo" };
+    const POR_PAGINA = 20;
+    let paginaActual = 1;
+    let totalPaginas = 1;
+
+    // Opciones del filtro de hora: 0:00 a 23:00
+    for (let h = 0; h < 24; h++) {
+      $("filtroHora").insertAdjacentHTML("beforeend",
+        `<option value="${h}">${String(h).padStart(2, "0")}:00 – ${String(h).padStart(2, "0")}:59</option>`);
+    }
+
+    function hoy() {
+      const d = new Date();
+      const mes = String(d.getMonth() + 1).padStart(2, "0");
+      const dia = String(d.getDate()).padStart(2, "0");
+      return `${d.getFullYear()}-${mes}-${dia}`;
+    }
+
+    function claseDistancia(cm) {
+      if (cm == null) return "dist-lejos";
+      if (cm < 50) return "dist-cerca";
+      if (cm < 150) return "dist-media";
+      return "";
+    }
+
+    // Sin distancia = la cámara lo vio, pero más lejos de lo que mide el sensor
+    function textoDistancia(cm) {
+      return cm == null ? "Lejos (más de 1.5 m)" : `${cm} cm`;
+    }
+
+    function chip(tipo) {
+      return `<span class="chip ${tipo}">${NOMBRES[tipo] || tipo}</span>`;
+    }
+
+    async function obtener(url) {
+      const res = await fetch(url);
+      return res.json();
+    }
+
+    function pintarResumen(datos) {
+      const contar = tipo => datos.filter(d => d.tipo === tipo).length;
+      $("totalHoy").textContent = datos.length;
+      $("personas").textContent = contar("persona");
+      $("animales").textContent = contar("animal");
+      $("obstaculos").textContent = contar("obstaculo");
+      const distancias = datos.map(d => d.distancia).filter(x => x != null);
+      $("cercano").textContent = distancias.length ? Math.round(Math.min(...distancias)) + " cm" : "–";
+    }
+
+    function pintarUltima(d) {
+      if (!d) return;
+      $("ultima").innerHTML =
+        `${chip(d.tipo)} · <b class="${claseDistancia(d.distancia)}">${textoDistancia(d.distancia)}</b> · ${d.fecha_hora}`;
+    }
+
+    function pintarGrafica(datos) {
+      const porHora = Array(24).fill(0);
+      datos.forEach(d => porHora[parseInt(d.fecha_hora.slice(11, 13))]++);
+      const maximo = Math.max(1, ...porHora);
+      $("grafica").innerHTML = porHora.map((n, h) => `
+        <div class="barra-col" title="${h}:00 → ${n} detecciones">
+          <div class="barra" style="height:${(n / maximo) * 85}%"></div>
+          <div class="hora">${h % 3 === 0 ? h + "h" : ""}</div>
+        </div>`).join("");
+    }
+
+    async function cargarTabla() {
+      const params = new URLSearchParams({ pagina: paginaActual, por_pagina: POR_PAGINA });
+      if ($("filtroTipo").value) params.set("tipo", $("filtroTipo").value);
+      if ($("filtroFecha").value) params.set("fecha", $("filtroFecha").value);
+      if ($("filtroHora").value) params.set("hora", $("filtroHora").value);
+
+      const r = await obtener("/api/detecciones?" + params);
+      paginaActual = r.pagina;
+      totalPaginas = r.paginas;
+      $("tabla").innerHTML = r.detecciones.length
+        ? r.detecciones.map(d => `
+            <tr>
+              <td>${d.fecha_hora}</td>
+              <td>${chip(d.tipo)}</td>
+              <td class="${claseDistancia(d.distancia)}">${textoDistancia(d.distancia)}</td>
+            </tr>`).join("")
+        : `<tr><td colspan="3" class="vacio">No hay detecciones</td></tr>`;
+      $("infoPagina").textContent = `Página ${paginaActual} de ${totalPaginas} · ${r.total} detecciones`;
+      $("anterior").disabled = paginaActual <= 1;
+      $("siguiente").disabled = paginaActual >= totalPaginas;
+    }
+
+    // Al cambiar un filtro se vuelve a la primera página
+    function filtrar() {
+      paginaActual = 1;
+      cargarTabla();
+    }
+
+    async function cargarEstado() {
+      const e = await obtener("/api/estado");
+      const reciente = (fecha, ms) => fecha && Date.now() - new Date(fecha.replace(" ", "T")) < ms;
+      const conectado = reciente(e.ultima_conexion, 30000);
+      $("estado").className = "estado " + (conectado ? "on" : "off");
+      $("estado").textContent = conectado ? "● Lentes conectados" : "● Sin conexión";
+      const camara = reciente(e.camara_ultima_foto, 10000);
+      $("estadoCamara").className = "estado " + (camara ? "on" : "off");
+      $("estadoCamara").textContent = camara ? "📷 Cámara conectada" : "📷 Cámara sin conexión";
+      // El video se muestra solo mientras la cámara está mandando fotos
+      $("camara").hidden = !camara;
+      $("sinCamara").hidden = camara;
+      if (e.bateria != null) {
+        $("bateria").hidden = false;
+        $("bateria").textContent = `🔋 ${e.bateria}%`;
+      }
+    }
+
+    async function actualizar() {
+      try {
+        const datosHoy = await obtener(`/api/detecciones?fecha=${hoy()}&limite=1000`);
+        pintarResumen(datosHoy);
+        pintarUltima(datosHoy[0]);
+        pintarGrafica(datosHoy);
+        await cargarTabla();
+        await cargarEstado();
+      } catch (error) {
+        $("estado").className = "estado off";
+        $("estado").textContent = "● Servidor sin respuesta";
+      }
+    }
+
+    $("filtroTipo").addEventListener("change", filtrar);
+    $("filtroFecha").addEventListener("change", filtrar);
+    $("filtroHora").addEventListener("change", filtrar);
+    $("limpiar").addEventListener("click", () => {
+      $("filtroTipo").value = "";
+      $("filtroFecha").value = "";
+      $("filtroHora").value = "";
+      filtrar();
+    });
+    function avisar(texto) {
+      $("notificacion").textContent = texto;
+      $("notificacion").classList.add("ver");
+      setTimeout(() => $("notificacion").classList.remove("ver"), 3000);
+    }
+    $("limpiarDatos").addEventListener("click", () => $("avisoBorrar").showModal());
+    $("cancelarBorrar").addEventListener("click", () => $("avisoBorrar").close());
+    $("confirmarBorrar").addEventListener("click", async () => {
+      $("avisoBorrar").close();
+      const r = await (await fetch("/api/detecciones", { method: "DELETE" })).json();
+      paginaActual = 1;
+      await actualizar();
+      avisar(`✓ Listo, se borraron ${r.borradas} detecciones`);
+    });
+    $("anterior").addEventListener("click", () => {
+      if (paginaActual > 1) { paginaActual--; cargarTabla(); }
+    });
+    $("siguiente").addEventListener("click", () => {
+      if (paginaActual < totalPaginas) { paginaActual++; cargarTabla(); }
+    });
+
+    actualizar();
+    setInterval(actualizar, 3000);
+    // Video en vivo: el servidor va mandando cada foto nueva apenas llega de la cámara
+    $("camara").src = "/api/video";
+  </script>
+</body>
+</html>
