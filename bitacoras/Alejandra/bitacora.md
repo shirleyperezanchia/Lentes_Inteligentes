@@ -175,3 +175,222 @@
 - Investigar cómo funciona la ESP32-CAM y qué necesitamos para incorporarla.
 - Actualizar los diagramas del circuito para incluir la cámara.
 - Seguir con las pruebas y la programación de los componentes para avanzar con el prototipo.
+
+## Día 4 [22/10/2026]
+
+### Integrantes presentes
+
+- Alejandra Quintanilla
+- Dana Aguirre
+- Shirley Pérez
+- Joan Eras
+
+### Actividades realizadas
+
+- Nos reunimos para seguir con el proyecto, esta vez enfocadas en la ESP32-CAM y en cómo enviar sus imágenes a un servidor.
+- **Individual:** creé el servidor que usaríamos para recibir las imágenes de la cámara, y lo probamos enviándole imágenes para comprobar que funcionara.
+- Trabajamos con la ESP32-CAM y el adaptador FT232RL, revisando las conexiones necesarias para programar la cámara desde Arduino IDE.
+- Aprendimos que el pin IO0 se conecta a GND solo mientras se carga el código, y que después hay que desconectarlo para que la cámara funcione normalmente.
+- Comprobamos que la ESP32-CAM tomaba fotografías, pero al enviarlas al servidor tuvimos problemas con la conexión a internet y no pudimos verlas.
+- Mientras hacíamos las pruebas, Joan comenzó a trabajar en la parte escrita del proyecto.
+- Como no logramos resolver el problema de conexión en la reunión, Dana probó la cámara en su casa con otra red, para saber si la falla era de la cámara o de la conexión.
+
+### Avances
+
+- El servidor quedó creado y comprobamos que recibía las imágenes de prueba.
+- Programamos la ESP32-CAM con Arduino IDE y verificamos que tomaba fotografías.
+- Identificamos que el problema probablemente estaba en la conexión a internet, ya que las imágenes de la cámara no llegaban al servidor.
+- Joan comenzó el trabajo escrito del proyecto.
+- Dana comprobó desde su casa, con otra red, que la cámara sí funcionaba.
+
+### Dificultades encontradas
+
+- La cámara tomaba las fotos, pero no lográbamos enviarlas y verlas en el servidor.
+- Los problemas con la conexión a internet no nos dejaron comprobar el funcionamiento completo del sistema.
+- Al principio no sabíamos si la falla estaba en el código de la cámara, en el servidor o en la red.
+
+### Soluciones implementadas
+
+- Probamos el servidor por separado, enviándole imágenes de prueba, para asegurarnos de que las recibía.
+- Comprobamos desde Arduino IDE que la cámara tomaba fotos, aunque todavía no llegaran al servidor.
+- Decidimos probar la cámara con otra red, y Dana hizo la prueba desde su casa.
+- Con esa prueba confirmamos que la cámara funcionaba, lo que indicaba que el problema estaba en la red que usamos durante la reunión.
+
+### Decisiones técnicas
+
+- Decidimos usar un servidor para recibir las imágenes de la ESP32-CAM y luego usarlas para reconocer personas, animales y objetos.
+- Mantuvimos el FT232RL como adaptador para programar la cámara desde Arduino IDE.
+- Acordamos probar con distintas redes antes de seguir con la integración del sistema.
+- Dejamos pendiente la prueba completa entre la cámara y el servidor hasta poder hacer nuevas pruebas.
+
+### Pruebas efectuadas
+
+- Enviamos imágenes de prueba al servidor y comprobamos que las recibía.
+- Cargamos el código de la ESP32-CAM desde Arduino IDE y verificamos que tomaba fotografías.
+- Intentamos enviar las fotos de la cámara al servidor, pero no llegaron por los problemas de conexión.
+- Dana probó la cámara en su casa con otra red y comprobó que funcionaba. Esta prueba solo sirvió para verificar la cámara, porque desde ahí no tenía acceso al servidor.
+
+### Aprendizajes obtenidos
+
+- Aprendí cómo funciona la comunicación entre una cámara y un servidor para enviar imágenes.
+- Comprendí mejor cómo programar la ESP32-CAM con el FT232RL y la importancia de conectar bien el pin IO0.
+- Me di cuenta de que la conexión a internet puede afectar las pruebas, aunque los componentes estén funcionando bien.
+- Aprendí que cuando algo falla conviene probar cada parte por separado para encontrar dónde está el problema.
+
+### Próximos pasos
+
+- Reunirnos de nuevo para probar la conexión entre la ESP32-CAM y el servidor.
+- Comprobar si las imágenes llegan al servidor usando otra red.
+- Empezar a trabajar con YOLO para reconocer personas, animales y objetos cuando el servidor ya reciba las imágenes.
+- Seguir avanzando con el trabajo escrito y la integración de los componentes.
+
+## Día 5 [23/10/2026]
+
+### Integrantes presentes
+
+- Alejandra Quintanilla
+- Dana Aguirre
+- Shirley Pérez
+- Joan Eras
+
+### Actividades realizadas
+
+- Nos reunimos en la soda para seguir con el proyecto y hacer nuevas pruebas con la ESP32-CAM y el servidor.
+- Como ya sabíamos que la cámara funcionaba y yo había dejado el servidor funcionando, retomamos las pruebas de comunicación y empezamos a trabajar con YOLO para reconocer personas, animales y objetos en las imágenes.
+- Modificamos el código de la ESP32-CAM desde la computadora de Dana para mejorar la captura de imágenes y el envío al servidor.
+- En las pruebas vimos que el reconocimiento todavía fallaba, porque a veces no identificaba bien lo que aparecía en la imagen.
+- Acomodamos los componentes uno al lado del otro y tomamos sus medidas para calcular el espacio de una carcasa.
+- **Individual:** con esas medidas comencé un diseño en 3D para organizar los componentes y tener una idea de cómo quedaría el prototipo.
+- Al revisar el proyecto con el profesor Eddier, notamos que usar baterías sería más complicado de lo esperado, porque algunos componentes necesitan voltajes distintos.
+- Con una sola batería habría que adaptar la alimentación, y con varias ocuparíamos más espacio, así que descartamos esa idea.
+- Por eso también dejamos de lado el diseño en 3D y optamos por un montaje más sencillo, con una protoboard más pequeña y los componentes conectados a una fuente de alimentación externa.
+- **Individual:** continué con las pruebas de YOLO para revisar los problemas de reconocimiento.
+
+### Avances
+
+- Retomamos las pruebas de la ESP32-CAM con el servidor después de los problemas anteriores.
+- Ajustamos el código de la cámara desde la computadora de Dana.
+- Empezamos a usar YOLO para reconocer personas, animales y objetos.
+- Tomamos las medidas de los componentes y comencé un primer diseño en 3D, que después descartamos.
+- Identificamos los problemas de alimentar el circuito con baterías y definimos una alternativa más sencilla.
+- Decidimos usar una protoboard más pequeña para ocupar menos espacio y organizar mejor los componentes.
+
+### Dificultades encontradas
+
+- YOLO no siempre reconocía correctamente a las personas, animales y objetos.
+- Tuvimos que revisar y modificar el código de la cámara para poder seguir con las pruebas.
+- Alimentar todos los componentes con una sola batería era complicado, porque no todos necesitan el mismo voltaje.
+- Usar más de una batería habría ocupado más espacio y complicado el montaje de los lentes.
+- Después de tomar las medidas y empezar el diseño en 3D, tuvimos que descartarlo porque la distribución planeada ya no era la más conveniente.
+- La protoboard grande ocupaba demasiado espacio para el montaje que queríamos.
+
+### Soluciones implementadas
+
+- Ajustamos el código de la ESP32-CAM y seguimos probando su comunicación con el servidor.
+- Decidimos seguir probando YOLO para encontrar qué afectaba el reconocimiento.
+- Continué las pruebas del sistema en casa para revisarlo con más calma.
+- Después de analizar la alimentación, decidimos no usar baterías y mantener los componentes conectados a una fuente externa.
+- Descartamos la carcasa en 3D y optamos por una estructura más sencilla con una protoboard pequeña.
+
+### Decisiones técnicas
+
+- Mantuvimos YOLO para reconocer personas, animales y objetos en las imágenes de la ESP32-CAM.
+- Decidimos seguir ajustando el código de la cámara para mejorar su funcionamiento.
+- Descartamos las baterías por las diferencias de voltaje entre los componentes y el espacio extra que ocuparían.
+- Acordamos usar una fuente de alimentación externa.
+- Decidimos no seguir con la carcasa en 3D y usar un montaje más sencillo.
+- Elegimos una protoboard más pequeña, que todavía teníamos que conseguir, para facilitar el montaje de los lentes.
+
+### Pruebas efectuadas
+
+- Retomamos las pruebas de comunicación entre la ESP32-CAM y el servidor.
+- Modificamos el código de la cámara y volvimos a probar su funcionamiento.
+- Probamos el reconocimiento con YOLO y vimos que en algunos casos no identificaba bien a las personas, animales u objetos.
+- Medimos los componentes y revisamos su distribución para el diseño inicial de la carcasa.
+- Analizamos qué necesitaba cada componente para alimentarse y cuál era la opción más conveniente.
+
+### Aprendizajes obtenidos
+
+- Aprendí que el reconocimiento de imágenes no siempre funciona bien en las primeras pruebas y que hay que ajustarlo para mejorar los resultados.
+- Comprendí que los componentes pueden necesitar voltajes distintos y que eso hay que tomarlo en cuenta al decidir cómo alimentarlos.
+- Me di cuenta de que las baterías no siempre son la opción más sencilla cuando se trabaja con varios componentes.
+- Aprendí que antes de diseñar una carcasa hay que tener definidas la alimentación y la distribución de los componentes, para no hacer diseños que después no se usen.
+- Comprendí que simplificar el montaje facilita las conexiones y las pruebas.
+
+### Próximos pasos
+
+- Conseguir la protoboard pequeña para pasar los componentes y seguir con el montaje.
+- Planear cómo acomodar los componentes y las conexiones en la nueva protoboard.
+- Preparar un diseño físico más sencillo para los lentes, tomando en cuenta que seguirán conectados a una fuente externa.
+- Seguir probando y ajustando YOLO para mejorar el reconocimiento.
+
+## Día 6 [30/10/2026]
+
+### Integrantes presentes
+
+- Alejandra Quintanilla
+- Dana Aguirre
+- Shirley Pérez
+
+### Actividades realizadas
+
+- Nos reunimos para seguir con el proyecto, ya que por fin teníamos la protoboard pequeña que estábamos esperando.
+- Pasamos los componentes y las conexiones de la protoboard grande a la pequeña, como habíamos decidido en la reunión anterior para simplificar el montaje.
+- Al terminar de acomodarlos, probamos de nuevo que todo siguiera funcionando después del cambio.
+- Seguimos haciendo pruebas con YOLO, porque todavía había problemas para reconocer personas, animales y objetos.
+- Decidimos colocar los componentes sobre unos lentes para tener una primera idea de cómo quedaría el proyecto.
+- Hicimos un montaje provisional con los materiales que teníamos a mano y probamos los lentes para ver cómo funcionaban los componentes colocados sobre ellos.
+- Revisamos cómo quedaban distribuidos los cables y los componentes, para identificar qué mejorar antes del montaje definitivo.
+
+### Avances
+
+- Pasamos los componentes a la protoboard pequeña, lo que redujo el espacio que ocupa el circuito.
+- Hicimos el primer montaje físico de los lentes inteligentes.
+- Comprobamos que los componentes siguieran funcionando después de cambiar la protoboard.
+- Avanzamos con las pruebas de YOLO para mejorar el reconocimiento de personas, animales y objetos.
+- Pudimos ver cómo quedaría aproximadamente el prototipo y qué hay que mejorar para el montaje final.
+- Empezamos a aplicar la idea de una estructura más sencilla, sin la carcasa en 3D ni las baterías que habíamos considerado antes.
+
+### Dificultades encontradas
+
+- YOLO todavía tenía problemas para reconocer a las personas, animales y objetos, porque en algunas ocasiones no los detectaba.
+- El montaje de los lentes fue improvisado, porque aún no teníamos una forma definitiva de sujetar y acomodar los componentes.
+- Al pasar las conexiones a la protoboard pequeña tuvimos que cuidar más la distribución de los cables por el poco espacio.
+- Aunque los componentes quedaron sobre los lentes, faltaba mejorar su organización y estabilidad.
+
+### Soluciones implementadas
+
+- Revisamos las conexiones después de pasar los componentes, para asegurarnos de que estuvieran bien colocados.
+- Seguimos probando YOLO para identificar en qué situaciones fallaba el reconocimiento.
+- Usamos los materiales que teníamos para hacer un montaje provisional sobre los lentes y comprobar cómo funcionaría el prototipo.
+- Anotamos lo que había que mejorar en la distribución y sujeción de los componentes para el montaje definitivo.
+- Mantuvimos la estructura sencilla con la protoboard pequeña, sin agregar elementos que ocuparan demasiado espacio.
+
+### Decisiones técnicas
+
+- Decidimos quedarnos con la protoboard pequeña para el montaje final, porque ocupa menos espacio y facilita organizar los componentes.
+- Mantuvimos YOLO para reconocer personas, animales y objetos, aunque todavía necesita mejoras.
+- Acordamos usar el montaje provisional como referencia para preparar una versión más ordenada y estable de los lentes.
+- Seguimos trabajando con los componentes conectados a una fuente de alimentación externa, como habíamos definido.
+- Mantuvimos la decisión de no usar baterías ni carcasa en 3D, porque el diseño sencillo se adapta mejor a lo que tenemos ahora.
+
+### Pruebas efectuadas
+
+- Probamos las conexiones de los componentes después de pasarlos a la protoboard pequeña.
+- Hicimos nuevas pruebas con YOLO para revisar el reconocimiento de personas, animales y objetos.
+- Colocamos los componentes sobre unos lentes y probamos cómo funcionaban en el montaje provisional.
+- Revisamos la distribución de los componentes para definir qué cambiar antes del montaje final.
+
+### Aprendizajes obtenidos
+
+- Aprendí que al cambiar a una protoboard más pequeña hay que organizar mejor las conexiones y revisar que todo siga funcionando.
+- Comprendí que no basta con que los componentes funcionen por separado: también hay que pensar en cómo acomodarlos físicamente.
+- Me di cuenta de que el reconocimiento de imágenes necesita más pruebas y ajustes para dar mejores resultados.
+- Aprendí que un montaje provisional ayuda a encontrar problemas que no se habían considerado antes de la versión final.
+- Comprendí que un diseño más sencillo facilita el montaje y permite concentrarse en mejorar el funcionamiento del sistema.
+
+### Próximos pasos
+
+- Hacer un montaje de los lentes más ordenado, firme y definitivo.
+- Buscar una mejor forma de acomodar y sujetar los componentes para que el prototipo quede estable.
+- Seguir probando y ajustando YOLO para mejorar el reconocimiento de personas, animales y objetos.
