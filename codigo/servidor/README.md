@@ -1,39 +1,43 @@
 # Servidor local
 
-Servidor desarrollado en Python con Flask, que se ejecuta en la laptop durante el uso de los lentes. Sus funciones principales son:
+Este es el servidor de los lentes. Está hecho en Python con Flask y corre en la laptop mientras se usan los lentes. Se encarga de tres cosas:
 
-1. Recibir las imágenes enviadas por la ESP32-CAM y analizarlas con el modelo YOLO para identificar si corresponden a una persona, un animal o un obstáculo.
-2. Informar al ESP32 el resultado del análisis, para que el buzzer genere la alerta correspondiente.
-3. Almacenar cada detección (tipo, distancia, fecha y hora) en una base de datos SQLite y presentarla en una página web.
+1. Recibir las fotos de la ESP32-CAM y pasarlas por YOLO para ver si hay una persona, un animal o un obstáculo.
+2. Avisarle al ESP32 qué vio la cámara, para que el buzzer suene como corresponde.
+3. Guardar cada detección (tipo, distancia, fecha y hora) en una base de datos SQLite y mostrarla en una página web.
 
-## Requisitos
+## Qué se necesita
 
 - Python 3.13.
-- La laptop, la ESP32-CAM y el ESP32 deben estar conectados a la misma red Wi-Fi.
+- Que la laptop, la ESP32-CAM y el ESP32 estén en la misma red Wi-Fi.
 
-## Ejecución
+## Cómo ejecutarlo
 
-Desde esta carpeta, ejecutar en la terminal:
+En la terminal, dentro de esta carpeta:
 
     python -m venv venv
     venv\Scripts\activate
     pip install -r requirements.txt
     python app.py
 
-La primera instalación puede tardar varios minutos, ya que incluye la descarga de YOLO. En las siguientes ejecuciones solo es necesario activar el entorno virtual y ejecutar `python app.py`.
+La primera vez tarda varios minutos porque se descarga YOLO. Después solo hay que activar el entorno virtual y correr `python app.py`.
 
-Al iniciar, el servidor muestra la dirección IP de la laptop. Esta dirección debe colocarse en `SERVIDOR_IP` dentro de los archivos `credenciales.h` del ESP32 y de la ESP32-CAM.
+Cuando arranca, el servidor muestra la IP de la laptop. Esa IP va en `SERVIDOR_IP`, dentro del `credenciales.h` del ESP32 y de la ESP32-CAM.
 
-La página web está disponible en http://localhost:5000. Si Windows solicita permiso en el firewall, se debe permitir el acceso en redes públicas y privadas para que la cámara pueda enviar las imágenes.
+La página se abre en http://localhost:5000. Si Windows pide permiso en el firewall, hay que permitirlo en redes públicas y privadas; si no, la cámara no puede mandar las fotos.
+
+El archivo `index.html` tiene que estar dentro de la carpeta `templates`, junto a `app.py`. La base de datos `detecciones.db` no hay que crearla: el servidor la crea solo la primera vez.
 
 ## Rutas del servidor
 
-| Ruta | Descripción |
+| Ruta | Para qué sirve |
 |---|---|
-| `POST /api/imagen` | Recibe la imagen de la cámara y devuelve el resultado de YOLO |
-| `GET /api/resultado` | Indica al ESP32 lo detectado por la cámara en los últimos segundos |
-| `POST /api/deteccion` | Registra una detección enviada por el ESP32 con su distancia |
-| `GET /api/detecciones` | Consulta el historial, con filtros por tipo, día y hora, y paginación |
-| `GET/POST /api/estado` | Registra y consulta el estado de conexión de los lentes y la cámara |
-| `GET /api/exportar` | Descarga todas las detecciones en formato CSV |
-| `GET /` | Página web con el resumen y el historial de detecciones |
+| `POST /api/imagen` | Recibe la foto de la cámara y responde lo que vio YOLO |
+| `GET /api/resultado` | Le dice al ESP32 qué vio la cámara en los últimos segundos |
+| `POST /api/deteccion` | Guarda una detección que manda el ESP32, con su distancia |
+| `GET /api/detecciones` | Muestra el historial, con filtros por tipo, día y hora, y por páginas |
+| `DELETE /api/detecciones` | Borra todas las detecciones (botón "Limpiar datos") |
+| `GET/POST /api/estado` | Guarda y muestra si los lentes y la cámara están conectados |
+| `GET /api/video` | Muestra la cámara en vivo en la página |
+| `GET /api/exportar` | Descarga las detecciones en un archivo CSV |
+| `GET /` | La página con el resumen y el historial |
