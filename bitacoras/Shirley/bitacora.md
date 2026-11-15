@@ -62,11 +62,10 @@
 
 
 
-# BITÁCORA DEL PROYECTO: PROTOTIPO LENTES INTELIGENTES ASISTIVOS
+
 
 ## DÍA 2 – 1 DE OCTUBRE DE 2026
 
-## Bitácora de: Shirley Pérez
 
 ### Integrantes presentes
 
@@ -135,11 +134,9 @@
 - Consultar las dudas que todavía teníamos sobre la programación y las conexiones de los componentes.
 
 
-# BITÁCORA DEL PROYECTO:  PROTOTIPO LENTES INTELIGENTES ASISTIVOS
+
 
 ## DÍA 3 – 2 DE OCTUBRE DE 2026
-
-## Bitácora de: Shirley Pérez
 
 ### Integrantes presentes
 
@@ -207,11 +204,10 @@
 - Continuar realizando pruebas con el ESP32, el sensor ultrasónico y el buzzer.
 - Investigar cómo podríamos implementar el reconocimiento de personas, animales y objetos mediante las imágenes capturadas por la cámara.
 
-# BITÁCORA DEL PROYECTO: PROTOTIPO LENTES INTELIGENTES ASISTIVOS
+
 
 ## DÍA 4 – 22 DE OCTUBRE DE 2026
 
-## Bitácora de: Shirley Pérez
 
 ### Integrantes presentes
 
@@ -287,11 +283,10 @@
 - Comenzar a trabajar con YOLO para implementar el reconocimiento de personas, animales y objetos.
 - Seguir avanzando con la integración de los componentes y la documentación del proyecto.
 
-# BITÁCORA DEL PROYECTO: PROTOTIPO LENTES INTELIGENTES ASISTIVOS
+
 
 ## DÍA 5 – 23 DE OCTUBRE DE 2026
 
-## Bitácora de: Shirley Pérez
 
 ### Integrantes presentes
 
@@ -377,11 +372,8 @@
 - Continuar realizando pruebas con YOLO para mejorar el reconocimiento de personas, animales y objetos.
 - Seguir revisando la comunicación entre la ESP32-CAM y el servidor.
 
-  # BITÁCORA DEL PROYECTO: PROTOTIPO LENTES INTELIGENTES ASISTIVOS
 
 ## DÍA 6 – 30 DE OCTUBRE DE 2026
-
-## Bitácora de: Shirley Pérez
 
 ### Integrantes presentes
 
@@ -459,3 +451,82 @@
 - Continuar realizando pruebas y ajustes con YOLO para mejorar el reconocimiento de personas, animales y objetos.
 - Revisar nuevamente el funcionamiento de los componentes cuando realicemos cambios en el montaje.
 - Preparar una versión física más organizada del prototipo de lentes inteligentes.
+
+
+## DÍA 7 – 12 Y 13 DE NOVIEMBRE DE 2026
+
+### Integrantes presentes
+
+- Alejandra Quintanilla
+- Dana Aguirre
+- Shirley Pérez
+
+### Actividades realizadas
+
+- Durante estos dos días nos reunimos las tres para trabajar en el montaje definitivo de nuestro prototipo de lentes inteligentes, utilizando unos lentes como base para colocar los componentes electrónicos.
+- Comenzamos a acomodar el sensor ultrasónico HC-SR04, el buzzer, la ESP32-CAM y los demás componentes que forman parte del circuito, tratando de encontrar una distribución que fuera funcional y que también se viera ordenada.
+- Una de las tareas que más tiempo nos llevó fue organizar los cables jumper, ya que necesitábamos conectarlos correctamente sin que estorbaran demasiado ni quedaran sobresaliendo por todas partes.
+- Estuvimos probando diferentes posiciones para los componentes y los cables, buscando que quedaran bien sujetos a los lentes y que el prototipo tuviera una mejor apariencia.
+- También utilizamos pegamento para fijar los componentes y algunas conexiones. Sin embargo, conforme avanzábamos, se nos complicó identificar algunos cables porque quedaban muy juntos y ya no era tan fácil distinguir a qué pin correspondía cada uno.
+- Durante el proceso fuimos revisando las conexiones y acomodando nuevamente algunos cables para evitar confusiones.
+- El viernes 13 logramos terminar el montaje y realizamos pruebas para revisar el funcionamiento del prototipo después de haber colocado los componentes sobre los lentes.
+- Al finalizar, Alejandra se llevó los lentes a su casa para mejorar la organización de los cables y hacer que fuera más fácil identificar de qué pin salía cada conexión y hacia dónde se dirigía.
+
+### Avances
+
+- Logramos colocar los componentes electrónicos sobre la estructura de los lentes, avanzando del montaje provisional a una versión física más completa del prototipo.
+- Conseguimos distribuir el sensor ultrasónico, el buzzer y la ESP32-CAM sobre los lentes.
+- Avanzamos en la organización y fijación de los cables jumper, aunque todavía quedaban algunos detalles por mejorar.
+- El viernes terminamos el montaje que habíamos planificado y realizamos pruebas para revisar su funcionamiento.
+- Identificamos aspectos importantes que necesitábamos corregir para facilitar la revisión de las conexiones y mejorar la presentación del prototipo.
+
+### Dificultades encontradas
+
+- Una de las mayores dificultades fue encontrar la manera de colocar todos los componentes sobre los lentes, ya que el espacio era limitado y debíamos procurar que quedaran bien sujetos.
+- Nos costó bastante acomodar los cables jumper porque algunos eran largos, se cruzaban entre sí y dificultaban que el montaje se viera ordenado.
+- También queríamos que los componentes quedaran distribuidos de una manera más estética, pero al mismo tiempo necesitábamos mantener las conexiones necesarias para su funcionamiento.
+- Al utilizar pegamento para fijar algunas partes, varios cables quedaron muy juntos y se nos hizo difícil distinguir cuáles correspondían a determinados pines.
+- Esto complicaba la revisión del circuito, porque no siempre era sencillo seguir visualmente el recorrido de cada cable desde su origen hasta su destino.
+- Tuvimos que dedicar bastante tiempo a encontrar posiciones adecuadas para los componentes sin afectar las conexiones.
+
+### Soluciones implementadas
+
+- Fuimos probando diferentes posiciones para los componentes hasta encontrar una distribución que se adaptara mejor a la estructura de los lentes.
+- Reacomodamos los cables jumper varias veces para reducir el desorden y evitar que sobresalieran demasiado.
+- Utilizamos pegamento para sujetar los componentes y mantenerlos en las posiciones que habíamos elegido.
+- Cuando se nos dificultaba identificar alguna conexión, revisábamos los pines y el recorrido de los cables para evitar confundirlos.
+- Después de terminar el montaje, acordamos que todavía era necesario mejorar la organización del cableado.
+- Por esta razón, Alejandra se llevó el prototipo a su casa para acomodar mejor los cables y facilitar la identificación de las conexiones.
+
+### Decisiones técnicas
+
+- Decidimos utilizar los lentes como estructura principal para sostener los componentes electrónicos del prototipo.
+- Mantuvimos el sensor ultrasónico HC-SR04 para detectar obstáculos, el buzzer para generar alertas sonoras y la ESP32-CAM para capturar imágenes.
+- Optamos por fijar los componentes a la estructura de los lentes para evitar que se movieran durante las pruebas.
+- Acordamos organizar los cables jumper de manera que ocuparan el menor espacio posible, sin perder de vista la necesidad de identificar correctamente cada conexión.
+- Decidimos que, aunque el montaje ya estuviera terminado, era importante mejorar el cableado antes de considerar completamente finalizada su presentación física.
+
+### Pruebas efectuadas
+
+- Revisamos las conexiones de los componentes mientras realizábamos el montaje sobre los lentes.
+- Comprobamos que los cables permanecieran conectados después de acomodar y fijar los dispositivos.
+- El viernes 13 realizamos pruebas del prototipo montado para revisar su funcionamiento.
+- Observamos cómo quedaban distribuidos los componentes y los cables al estar colocados sobre los lentes.
+- Identificamos que todavía era necesario mejorar la organización del cableado para facilitar futuras revisiones y evitar confusiones entre los pines.
+
+### Aprendizajes obtenidos
+
+- Aprendí que montar los componentes electrónicos sobre una estructura física puede ser más complicado de lo que parece, especialmente cuando tenemos poco espacio disponible.
+- Comprendí que no basta con conectar correctamente los dispositivos, sino que también debemos pensar en cómo acomodarlos para que el prototipo sea funcional y tenga una buena presentación.
+- Me di cuenta de lo importante que es mantener los cables identificados y organizados, porque cuando se cruzan o quedan demasiado juntos resulta difícil reconocer a qué pin pertenece cada uno.
+- También aprendí que debemos tener cuidado al fijar los componentes, ya que después puede ser más complicado moverlos o revisar sus conexiones.
+- Estos dos días me ayudaron a comprender mejor la importancia de planificar la distribución física de un circuito antes de sujetar definitivamente sus componentes.
+- Además, reforcé mis conocimientos sobre las conexiones electrónicas y la importancia de trabajar en equipo para encontrar soluciones cuando el montaje presenta dificultades.
+
+### Próximos pasos
+
+- Mejorar la organización de los cables jumper para que sea más sencillo identificar el origen y destino de cada conexión.
+- Revisar nuevamente el circuito después de realizar los ajustes en el cableado.
+- Comprobar que todos los componentes continúen funcionando correctamente.
+- Realizar los últimos ajustes necesarios para mejorar la presentación física del prototipo.
+- Preparar las evidencias del montaje y las pruebas realizadas para incluirlas en la documentación del proyecto.
