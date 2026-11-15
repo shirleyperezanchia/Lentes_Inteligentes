@@ -394,3 +394,211 @@
 - Hacer un montaje de los lentes más ordenado, firme y definitivo.
 - Buscar una mejor forma de acomodar y sujetar los componentes para que el prototipo quede estable.
 - Seguir probando y ajustando YOLO para mejorar el reconocimiento de personas, animales y objetos.
+
+## Día 7 [12/11/2026]
+
+### Integrantes presentes
+
+- Alejandra Quintanilla
+- Dana Aguirre
+- Shirley Pérez
+
+### Actividades realizadas
+
+- Nos reunimos para comenzar el montaje definitivo de los lentes, tomando como referencia el montaje provisional de la reunión anterior.
+- Acomodamos la protoboard pequeña, el sensor ultrasónico, el buzzer y la ESP32-CAM sobre los lentes, buscando que quedaran más firmes y ordenados.
+- Revisamos las conexiones conforme íbamos colocando los componentes, para asegurarnos de que ninguna se soltara.
+- **Individual:** hice el diagrama de conexiones del prototipo en Cirkit Designer, una página que sí tenía todos los componentes que necesitábamos.
+- Al terminar la reunión, Shirley se llevó el prototipo a su casa.
+
+### Avances
+
+- Comenzamos el montaje definitivo de los lentes.
+- Los componentes quedaron mejor distribuidos que en el montaje provisional.
+- Terminé el diagrama completo de conexiones, con todos los componentes del prototipo.
+
+### Dificultades encontradas
+
+- Por el poco espacio, fue complicado acomodar todos los componentes y cables sin que se movieran.
+- No alcanzamos a terminar el montaje en una sola reunión.
+- En los programas que habíamos usado antes (Wokwi, Proteus y Tinkercad) no estaban todos los componentes, así que no podíamos hacer el diagrama completo.
+
+### Soluciones implementadas
+
+- Fuimos colocando los componentes uno por uno y revisando las conexiones después de cada cambio.
+- Acordamos terminar el montaje en la siguiente reunión.
+- Buscamos otra herramienta y encontramos Cirkit Designer, que sí tenía todos los componentes, y con ella hice el diagrama completo.
+
+### Decisiones técnicas
+
+- Mantuvimos la protoboard pequeña y la alimentación externa por USB, como habíamos definido antes.
+- Colocamos el sensor y la cámara al frente de los lentes, para que detecten lo que está delante de la persona.
+- Decidimos usar Cirkit Designer para el diagrama de conexiones, porque permite representar el circuito completo en un solo lugar.
+
+### Pruebas efectuadas
+
+- Revisamos que los componentes siguieran funcionando después de colocarlos sobre los lentes.
+- Comparé el diagrama con las conexiones reales del prototipo para comprobar que coincidieran.
+
+### Aprendizajes obtenidos
+
+- Aprendí que en el montaje final hay que cuidar tanto el funcionamiento como la estabilidad de los componentes.
+- Comprendí que mantener ordenados los cables facilita encontrar fallas.
+- Me di cuenta de que vale la pena buscar otras herramientas cuando las que se usan no tienen todo lo necesario.
+
+### Próximos pasos
+
+- Terminar el montaje de los lentes.
+- Agregar el diagrama de conexiones al artículo y al repositorio.
+- Avanzar con el artículo.
+
+## Día 8 [13/11/2026]
+
+### Integrantes presentes
+
+- Alejandra Quintanilla
+- Dana Aguirre
+- Shirley Pérez
+
+### Actividades realizadas
+
+- Nos reunimos para terminar el montaje de los lentes que habíamos comenzado el día anterior.
+- Probamos que el sensor, el buzzer y la cámara siguieran funcionando con el prototipo ya armado.
+- Trabajamos un poco en el artículo del proyecto.
+- **Individual:** me llevé el prototipo a mi casa y mejoré el montaje, acomodando mejor los componentes y los cables para que quedaran más firmes.
+
+### Avances
+
+- Terminamos de armar los lentes.
+- Comprobamos que el prototipo funcionaba después del montaje.
+- Avanzamos con el artículo.
+- Mejoré la distribución y la estabilidad de los componentes.
+
+### Dificultades encontradas
+
+- Algunos componentes y cables todavía quedaban un poco sueltos después del montaje.
+- La red de la universidad seguía dando problemas para probar la comunicación con el servidor.
+
+### Soluciones implementadas
+
+- Me llevé el prototipo a mi casa para revisar con más calma su distribución y reforzar lo que estaba suelto.
+
+### Decisiones técnicas
+
+- Mantuvimos la distribución general del montaje y dejamos solo ajustes de orden y estabilidad.
+
+### Pruebas efectuadas
+
+- Probamos el funcionamiento del sensor, el buzzer y la cámara con el prototipo armado.
+- Después de mejorar el montaje en mi casa, revisé que las conexiones siguieran funcionando.
+
+### Aprendizajes obtenidos
+
+- Comprendí que después de armar el prototipo hay que volver a probar todo, porque al mover los componentes alguna conexión puede fallar.
+- Aprendí que pequeños ajustes en la distribución hacen que el prototipo sea más estable y cómodo.
+
+### Próximos pasos
+
+- Terminar de mejorar el montaje.
+- Probar el sistema completo con una red más estable.
+- Seguir con el artículo.
+
+## Día 9 [14/11/2026]
+
+### Integrantes presentes
+
+- Individual (en casa)
+
+### Actividades realizadas
+
+- **Individual:** trabajé en el artículo del proyecto, avanzando en las secciones pendientes y revisando las citas y referencias en formato IEEE.
+
+### Avances
+
+- Avancé en la redacción del artículo.
+
+### Dificultades encontradas
+
+- Encontrar fuentes académicas confiables que respaldaran cada parte del proyecto llevó más tiempo de lo esperado.
+
+### Soluciones implementadas
+
+- Busqué artículos en revistas y en Google Académico, y revisé que las citas fueran textuales y coincidieran con sus referencias.
+
+### Decisiones técnicas
+
+- No se tomaron decisiones técnicas, ya que el día se dedicó al artículo.
+
+### Pruebas efectuadas
+
+- No se realizaron pruebas del prototipo.
+
+### Aprendizajes obtenidos
+
+- Aprendí a citar en formato IEEE y a revisar que cada cita corresponda con su referencia al final del artículo.
+
+### Próximos pasos
+
+- Terminar el montaje de los lentes.
+- Comprobar que todo el sistema funcione.
+- Seguir con el artículo.
+
+## Día 10 [15/11/2026]
+
+### Integrantes presentes
+
+- Individual (en casa)
+
+### Actividades realizadas
+
+- **Individual:** terminé el montaje de los lentes y comprobé que todos los componentes quedaran firmes y bien conectados.
+- **Individual:** modifiqué los dos códigos de Arduino:
+  - En el ESP32 ajusté los tiempos y las distancias del buzzer, para que pite más rápido según la cercanía y se silencie a los 2 segundos cuando el obstáculo está quieto.
+  - En la ESP32-CAM reduje la pausa entre fotos, para que las imágenes lleguen al servidor casi en tiempo real.
+- **Individual:** hice cambios en el servidor y la página: agregué la cámara en vivo, un botón para limpiar los datos antes de la presentación y una ventana de confirmación para no borrarlos por accidente.
+- **Individual:** probé el sistema completo con la red de mi casa: sensor, buzzer, cámara, servidor y página.
+- **Individual:** trabajé bastante en el artículo, avanzando en las secciones pendientes y revisando lo que faltaba corregir.
+
+### Avances
+
+- El montaje de los lentes quedó terminado.
+- El sistema completo funcionó correctamente con una red estable.
+- Las alertas del buzzer responden más rápido y molestan menos con obstáculos quietos.
+- La página muestra la cámara casi en vivo y permite limpiar los datos de prueba.
+- Avancé de forma importante en el artículo.
+
+### Dificultades encontradas
+
+- La red de la universidad no funciona bien para el proyecto: no deja que la cámara y los lentes se comuniquen con el servidor. Esta es la dificultad más grande que encontramos y nos preocupa, porque podría afectar la presentación.
+- El buzzer tardaba en silenciarse y los pitidos eran lentos.
+- Las imágenes de la cámara llegaban con mucho retraso a la página.
+
+### Soluciones implementadas
+
+- Hice las pruebas con la red de mi casa y confirmé que el prototipo funciona, el problema está en la red de la universidad.
+- Ajusté los tiempos del buzzer en el código del ESP32.
+- Reduje la pausa entre fotos en el código de la ESP32-CAM y agregué el video en vivo a la página.
+
+### Decisiones técnicas
+
+- Bajé a 2 segundos el tiempo para silenciar el buzzer y aceleré los pitidos en cada rango de distancia.
+- Agregué el botón de limpiar datos con confirmación, para empezar la presentación con la página vacía sin perder datos por error.
+- Decidí hacer las pruebas completas en una red estable mientras se busca una solución para la red de la universidad.
+
+### Pruebas efectuadas
+
+- Probé la conexión del ESP32 y la ESP32-CAM con el servidor.
+- Comprobé que el buzzer respondiera según la distancia y se silenciara con obstáculos quietos.
+- Verifiqué que la página mostrara las detecciones, la cámara en vivo y el estado de los lentes.
+- Probé el botón de limpiar datos y su ventana de confirmación.
+
+### Aprendizajes obtenidos
+
+- Comprendí que muchas fallas no vienen del código ni de los componentes, sino de la red.
+- Aprendí que los tiempos de las alertas influyen mucho en lo útil que resulta el prototipo para la persona.
+- Me di cuenta de que probar cada parte por separado ayuda a encontrar rápido dónde está el problema.
+
+### Próximos pasos
+
+- Subir a GitHub la parte de los códigos que me corresponde.
+- Terminar el artículo con los resultados, la discusión y las conclusiones.
