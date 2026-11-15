@@ -1,4 +1,3 @@
-from flask import Flask, request, jsonify, render_template, Response
 import sqlite3
 import csv
 import io
@@ -11,35 +10,31 @@ from datetime import datetime
 
 import cv2
 import numpy as np
+from flask import Flask, request, jsonify, render_template, Response
 
 app = Flask(__name__)
-# La base de datos y el modelo se guardan siempre junto a este archivo, sin importar desde dónde se ejecute
+
+# Configuración
 CARPETA = os.path.dirname(os.path.abspath(__file__))
 DB = os.path.join(CARPETA, "detecciones.db")
 FORMATO = "%Y-%m-%d %H:%M:%S"
 TIPOS_VALIDOS = {"obstaculo", "persona", "animal"}
 
-# Clases de YOLO (dataset COCO) que contamos como animales
 ANIMALES = {"bird", "cat", "dog", "horse", "sheep", "cow", "elephant", "bear", "zebra", "giraffe"}
 CONFIANZA_MINIMA = 0.5
-
-# Pasado este tiempo sin fotos nuevas, el resultado de YOLO se considera viejo
+TAMANO_YOLO = 416
 SEGUNDOS_RESULTADO_VALIDO = 3
 
-# Último estado de cada parte (se guarda en memoria)
 estado_lentes = {"ultima_conexion": None, "bateria": None, "camara_ultima_foto": None}
 
 modelo = None
-# YOLO trabaja siempre en un mismo hilo, una foto a la vez. Si se usa desde un hilo nuevo por cada foto,
-# va acumulando memoria y el servidor se cae después de unos minutos.
 hilo_yolo = ThreadPoolExecutor(max_workers=1)
-ultima_imagen = None  # foto más reciente de la cámara, con los recuadros de YOLO dibujados (JPEG)
-# Último resultado de YOLO, para que el ESP32 principal lo consulte
+ultima_imagen = None
 ultimo_resultado = {"tipo": "nada", "hora": 0.0}
 
 
+# YOLO
 def obtener_modelo():
-    # YOLO se carga una sola vez (tarda unos segundos)
     global modelo
     if modelo is None:
         from ultralytics import YOLO
@@ -48,17 +43,15 @@ def obtener_modelo():
 
 
 def detectar(imagen):
-    return obtener_modelo()(imagen, conf=CONFIANZA_MINIMA, verbose=False)[0]
+    return obtener_modelo()(imagen, conf=CONFIANZA_MINIMA, imgsz=TAMANO_YOLO, verbose=False)[0]
 
 
 def precargar_modelo():
-    # Se carga YOLO al encender el servidor, así la primera foto de la cámara no espera ~30 segundos
     hilo_yolo.submit(detectar, np.zeros((240, 320, 3), np.uint8)).result()
     print("YOLO listo")
 
 
 def ip_local():
-    # IP de esta compu en la red Wi-Fi (la que va en credenciales.h). No envía nada por internet.
     try:
         with socket.socket(socket.AF_INET, socket.SOCK_DGRAM) as s:
             s.connect(("8.8.8.8", 80))
@@ -67,6 +60,7 @@ def ip_local():
         return "127.0.0.1"
 
 
+# Base de datos
 def conectar():
     conn = sqlite3.connect(DB)
     conn.row_factory = sqlite3.Row
@@ -95,14 +89,13 @@ def guardar_deteccion(distancia, tipo):
     estado_lentes["ultima_conexion"] = fecha_hora
 
 
-# Los lentes (ESP32) envían aquí cada detección
+# Recibe las detecciones del ESP32
 @app.route("/api/deteccion", methods=["POST"])
 def registrar_deteccion():
     datos = request.get_json(silent=True)
     if not datos or "distancia" not in datos:
         return jsonify({"error": "Falta la distancia"}), 400
 
-    # null = la cámara vio algo más lejos de lo que alcanza a medir el sensor
     distancia = datos["distancia"]
     if distancia is not None:
         try:
@@ -118,13 +111,11 @@ def registrar_deteccion():
     return jsonify({"ok": True}), 201
 
 
-# La ESP32-CAM envía aquí cada foto y YOLO responde si hay persona, animal o nada.
-# Si además se envía ?distancia=85 y se detecta algo, se guarda en la base de datos.
+# Recibe las fotos de la ESP32-CAM y las analiza con YOLO
 @app.route("/api/imagen", methods=["POST"])
 def analizar_imagen():
     global ultima_imagen
 
-    # Acepta la foto como archivo de formulario (campo "imagen") o como bytes JPEG directos (ESP32-CAM)
     archivo = request.files.get("imagen")
     datos = archivo.read() if archivo else request.get_data()
     if not datos:
@@ -157,12 +148,11 @@ def analizar_imagen():
     return jsonify({"tipo": tipo, "objetos": objetos})
 
 
-# El ESP32 principal (sensor y buzzer) pregunta aquí qué vio YOLO hace poco.
-# Responde, por ejemplo: {"persona": true, "animal": false, "tipo": "persona", "segundos": 0.8}
+# El ESP32 consulta lo último que vio la cámara
 @app.route("/api/resultado")
 def ver_resultado():
     if ultimo_resultado["hora"] == 0:
-        segundos = -1  # todavía no ha llegado ninguna foto
+        segundos = -1
         tipo = "nada"
     else:
         segundos = round(time.time() - ultimo_resultado["hora"], 1)
@@ -175,7 +165,22 @@ def ver_resultado():
     })
 
 
-# Última foto analizada, para verla en la página
+# Video en vivo para la página
+@app.route("/api/video")
+def ver_video():
+    def generar():
+        enviada = None
+        while True:
+            foto = ultima_imagen
+            if foto is not None and foto is not enviada:
+                enviada = foto
+                yield (b"--frame\r\nContent-Type: image/jpeg\r\nContent-Length: "
+                       + str(len(foto)).encode() + b"\r\n\r\n" + foto + b"\r\n")
+            time.sleep(0.03)
+
+    return Response(generar(), mimetype="multipart/x-mixed-replace; boundary=frame")
+
+
 @app.route("/api/ultima-imagen")
 def ver_ultima_imagen():
     if ultima_imagen is None:
@@ -183,8 +188,7 @@ def ver_ultima_imagen():
     return Response(ultima_imagen, mimetype="image/jpeg")
 
 
-# Consulta de detecciones, con filtros opcionales: ?tipo=persona&fecha=2026-10-21&hora=14&limite=50
-# Con ?pagina=2&por_pagina=20 devuelve esa página y el total: {"detecciones": [...], "total": 87, "paginas": 5}
+# Historial de detecciones con filtros y páginas
 @app.route("/api/detecciones")
 def listar_detecciones():
     tipo = request.args.get("tipo")
@@ -201,7 +205,6 @@ def listar_detecciones():
         filtro += " AND fecha_hora LIKE ?"
         parametros.append(fecha + "%")
     if hora is not None:
-        # fecha_hora es "AAAA-MM-DD HH:MM:SS": la hora son los caracteres 12 y 13
         filtro += " AND CAST(substr(fecha_hora, 12, 2) AS INTEGER) = ?"
         parametros.append(hora)
 
@@ -209,7 +212,8 @@ def listar_detecciones():
         if pagina is None:
             limite = request.args.get("limite", 200, type=int)
             filas = conn.execute(
-                "SELECT * FROM detecciones" + filtro + " ORDER BY id DESC LIMIT ?", parametros + [limite]
+                "SELECT * FROM detecciones" + filtro + " ORDER BY id DESC LIMIT ?",
+                parametros + [limite],
             ).fetchall()
             return jsonify([dict(f) for f in filas])
 
@@ -229,7 +233,16 @@ def listar_detecciones():
     })
 
 
-# Los lentes avisan que siguen encendidos (y su batería); la página lo consulta
+# Borra todas las detecciones
+@app.route("/api/detecciones", methods=["DELETE"])
+def borrar_detecciones():
+    with conectar() as conn:
+        borradas = conn.execute("DELETE FROM detecciones").rowcount
+        conn.execute("DELETE FROM sqlite_sequence WHERE name = 'detecciones'")
+    return jsonify({"ok": True, "borradas": borradas})
+
+
+# Estado de conexión de los lentes
 @app.route("/api/estado", methods=["GET", "POST"])
 def estado():
     if request.method == "POST":
@@ -241,7 +254,7 @@ def estado():
     return jsonify(estado_lentes)
 
 
-# Descarga todas las detecciones en CSV (útil para las pruebas)
+# Exporta las detecciones a CSV
 @app.route("/api/exportar")
 def exportar():
     with conectar() as conn:
@@ -258,7 +271,7 @@ def exportar():
     )
 
 
-# Página web (dashboard)
+# Página principal
 @app.route("/")
 def inicio():
     return render_template("index.html")
@@ -270,10 +283,8 @@ if __name__ == "__main__":
 
     ip = ip_local()
     print("=" * 50)
-    print(f"Página:            http://localhost:5000")
+    print("Página:            http://localhost:5000")
     print(f"IP para credenciales.h:  {ip}")
     print("=" * 50)
 
-    # 0.0.0.0 permite que el ESP32 y el celular se conecten desde la misma red.
-    # Sin modo debug para que YOLO no se cargue dos veces; si cambian el código, reinicien el servidor.
     app.run(host="0.0.0.0", port=5000, threaded=True)
