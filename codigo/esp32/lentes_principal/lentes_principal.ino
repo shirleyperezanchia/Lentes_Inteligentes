@@ -3,7 +3,7 @@
 // 1. Mide la distancia 5 veces por segundo (3 lecturas y se queda con la del medio, para ignorar errores).
 // 2. Si hay algo a menos de 150 cm, pita; más rápido mientras más cerca.
 // 3. Si eso se queda quieto 2 segundos (una pared, alguien hablándote), se calla.
-//    Si se acerca, vuelve a sonar. A menos de 25 cm suena siempre, para no chocar.
+//    Si se acerca o se aleja, vuelve a sonar. A menos de 25 cm suena siempre, para no chocar.
 // 4. Si la cámara ve una persona o un animal (aunque esté a más de 150 cm), da 2 pitidos una sola vez.
 // 5. Todo lo que es Wi-Fi y servidor corre en otra tarea, en el otro núcleo del ESP32:
 //    así el sensor y el buzzer nunca se traban, aunque el servidor esté apagado o la red esté lenta.
@@ -44,7 +44,7 @@ const int ESPERA_SERVIDOR_MS = 1500;               // máximo para conectar y pa
 
 const float DISTANCIA_MAXIMA_CM = 150;   // más lejos de esto, silencio
 const float DISTANCIA_PELIGRO_CM = 25;   // más cerca de esto suena siempre, aunque esté quieto
-const float TOLERANCIA_CM = 25;          // cambios menores a esto se toman como ruido (una persona nunca está 100% quieta)
+const float TOLERANCIA_CM = 15;          // cambios menores a esto se toman como ruido (una persona nunca está 100% quieta)
 const unsigned long TIEMPO_ESTABLE_MS = 2000;  // quieto por 2 s = se silencia
 const int LECTURAS_FILTRO = 5;           // se usa la mediana de las últimas 5 mediciones (1 segundo)
 const int LECTURAS_PARA_MOVIMIENTO = 3;  // tiene que verse movido 3 veces seguidas para contar como movimiento
@@ -386,12 +386,7 @@ void actualizar(float lectura) {
 
     case ESTABLE:
       if (seMovio) {
-        if (distancia < distanciaReferencia) {
-          cambiarEstado(ALERTANDO, distancia);  // se acercó: vuelve a sonar
-        } else {
-          distanciaReferencia = distancia;      // se alejó: no hace falta avisar
-          lecturasMovido = 0;
-        }
+        cambiarEstado(ALERTANDO, distancia);  // cambió la distancia: vuelve a sonar
       }
       break;
   }
