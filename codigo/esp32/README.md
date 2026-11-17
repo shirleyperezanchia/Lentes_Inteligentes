@@ -23,6 +23,6 @@ Código del ESP32 que detecta los obstáculos con el sensor ultrasónico, avisa 
 
 - Mide la distancia 5 veces por segundo y filtra las lecturas para ignorar errores del sensor.
 - Si hay algo a menos de 150 cm, el buzzer pita más rápido mientras más cerca está, en cuatro niveles.
-- Una máquina de estados (sin obstáculo, alertando, estable) silencia la alerta si el obstáculo se queda quieto 2 segundos y la vuelve a activar si se acerca. A menos de 25 cm suena siempre.
+- Una máquina de estados (sin obstáculo, alertando, estable) silencia la alerta si el obstáculo se queda quieto 2 segundos y la vuelve a activar si se acerca o se aleja. A menos de 25 cm suena siempre.
 - Cada segundo consulta al servidor qué vio la cámara; si es una persona o un animal, da dos pitidos (si ya está pitando por distancia, no los repite).
 - La comunicación con el servidor corre en una tarea aparte, en el otro núcleo del ESP32, para que el sensor y el buzzer no se traben aunque el Wi-Fi esté lento o el servidor apagado.
