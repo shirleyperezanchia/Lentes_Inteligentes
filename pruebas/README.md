@@ -31,6 +31,3 @@ En esta carpeta se encuentran las fotos que muestran el funcionamiento de los le
 <img width="960" height="1280" alt="image" src="https://github.com/user-attachments/assets/ce8b7827-8946-4719-80f6-c4ee3edb8571" />
 <img width="900" height="1600" alt="image" src="https://github.com/user-attachments/assets/533906f0-dd77-461b-9c35-075de37033bf" />
 
-- **Servidor:** capturas de la terminal mientras el servidor recibe las fotos y las detecciones.
-- **Monitor Serial:** capturas de las distancias medidas por el sensor y los estados de las alertas.
-Los resultados completos de las pruebas y su análisis se encuentran en el artículo del proyecto.
