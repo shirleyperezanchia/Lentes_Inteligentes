@@ -58,7 +58,40 @@ Para representar el funcionamiento y las conexiones del prototipo se elaboraron 
 - Diagrama de arquitectura (draw\.io): muestra los componentes principales del sistema y cómo se comunican entre sí.
 - Diagrama de conexiones (Cirkit Designer): representa las conexiones electrónicas del ESP32, ESP32-CAM, sensor ultrasónico, buzzer y demás componentes.
 
+## 4. Implementación y paradigmas de programación
 
+Para el desarrollo del prototipo se aplicaron tres paradigmas de programación: orientado a eventos, concurrente y cliente-servidor. Cada uno cumple una función diferente dentro del sistema y permite organizar las tareas de detección, alerta y comunicación entre los dispositivos.
+
+### Programación orientada a eventos
+
+Se implementó mediante una máquina de estados que controla el comportamiento del sistema según las mediciones del sensor ultrasónico HC-SR04.
+
+El programa contempla tres estados: sin obstáculo, alertando y estable. Cuando se detecta un obstáculo dentro de los 150 cm, el buzzer emite pitidos cuyo ritmo aumenta conforme disminuye la distancia.
+
+Si el obstáculo permanece estable durante dos segundos, la alerta se silencia para evitar sonidos innecesarios. Sin embargo, cuando la distancia es inferior a 25 cm, el buzzer continúa emitiendo pitidos.
+
+También se utilizan filtros de mediana y lecturas consecutivas para reducir errores de medición y evitar alertas provocadas por variaciones aisladas.
+
+### Programación concurrente
+
+Se aprovecharon los dos núcleos del ESP32 principal para distribuir las tareas del sistema.
+
+- **Núcleo 0:** gestiona la comunicación con el servidor, las consultas HTTP, el envío de detecciones y la actualización del estado de conexión.
+- **Núcleo 1:** realiza las mediciones del sensor ultrasónico, el filtrado de datos, los cambios de estado y el control del buzzer.
+
+Para comunicar ambas tareas se utiliza una cola de detecciones con capacidad para diez registros y una variable compartida que almacena el resultado del reconocimiento de imágenes.
+
+Esta distribución permite que las mediciones y las alertas sonoras continúen funcionando aunque la conexión Wi-Fi presente dificultades o el servidor no esté disponible.
+
+### Arquitectura cliente-servidor
+
+La comunicación entre los dispositivos se realiza mediante una API desarrollada con Flask y utilizando el protocolo HTTP.
+
+La ESP32-CAM actúa como cliente al capturar y enviar fotografías en formato JPEG al servidor, donde se procesan mediante YOLO. El ESP32 principal consulta los resultados del reconocimiento, envía las detecciones junto con las distancias medidas e informa periódicamente sobre su estado de conexión.
+
+Por su parte, el servidor gestiona la información y utiliza SQLite para almacenar los registros de detecciones. Estos pueden consultarse desde la interfaz web, que permite visualizar el historial, aplicar filtros, comprobar el estado de los dispositivos y exportar los datos en formato CSV.
+
+La integración de estos tres paradigmas permite distribuir las responsabilidades del sistema y mantener la detección de obstáculos de manera independiente del procesamiento de imágenes.
 
 ## 5. Instalación y ejecución del proyecto
 
