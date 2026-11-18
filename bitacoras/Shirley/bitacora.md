@@ -530,3 +530,25 @@
 - Comprobar que todos los componentes continúen funcionando correctamente.
 - Realizar los últimos ajustes necesarios para mejorar la presentación física del prototipo.
 - Preparar las evidencias del montaje y las pruebas realizadas para incluirlas en la documentación del proyecto.
+
+### Día 8 – Sábado 14 y domingo 15 de noviembre de 2026
+
+**Actividad realizada: Elaboración y organización de la documentación técnica del proyecto.**
+
+Durante el sábado y domingo trabajé en la elaboración de la documentación técnica del proyecto de lentes inteligentes, con el propósito de organizar la información necesaria para explicar su funcionamiento y facilitar la comprensión del sistema desde el repositorio de GitHub.
+
+Primero, revisé la estructura del repositorio y las indicaciones del profesor para identificar qué información debía incluirse en la documentación, procurando no repetir el contenido desarrollado en el artículo académico.
+
+Posteriormente, redacté y organicé los apartados relacionados con la descripción general del proyecto, los componentes electrónicos, las tecnologías utilizadas y la arquitectura del sistema. También documenté el funcionamiento del sensor ultrasónico, las alertas sonoras y el reconocimiento de imágenes mediante la ESP32-CAM y YOLO.
+
+Además, trabajé en las instrucciones generales para la instalación y ejecución del prototipo, considerando los requisitos de hardware, software y comunicación con el servidor Flask. También incorporé la información de los diagramas elaborados en Cirkit Designer y draw.io, para relacionarlos con la explicación técnica del sistema.
+
+Durante este proceso realicé ajustes en la redacción y el formato del README, buscando que la documentación fuera clara, ordenada y fácil de consultar desde GitHub.
+
+**Aprendizaje obtenido:**
+
+Esta actividad me permitió comprender mejor la importancia de la documentación técnica en un proyecto de programación. Aprendí a organizar la información del sistema y a diferenciar la documentación técnica del artículo académico, evitando repetir explicaciones y enfocándome en los aspectos necesarios para comprender y reproducir el funcionamiento del prototipo.
+
+**Resultado:**
+
+Se avanzó en la elaboración del documento técnico del repositorio, dejando organizadas las secciones principales y algunos detalles pendientes de verificar con el código fuente.
