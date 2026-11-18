@@ -48,7 +48,7 @@ Las herramientas de programación, los paradigmas y las tecnologías de software
 
 ## Estado del proyecto
 
-En fase de planificación y diseño.
+finalizado
 
 ## Consideraciones
 
