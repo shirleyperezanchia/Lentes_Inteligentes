@@ -602,3 +602,64 @@
 
 - Subir a GitHub la parte de los códigos que me corresponde.
 - Terminar el artículo con los resultados, la discusión y las conclusiones.
+
+## Día 11 [17/11/2026]
+
+### Integrantes presentes
+
+- Alejandra Quintanilla
+- Dana Aguirre
+- Joan Eras
+
+### Actividades realizadas
+
+- Dana y yo realizamos las pruebas finales del prototipo en la universidad: recorrimos distintos espacios del campus con los lentes puestos y probamos el reconocimiento de YOLO con personas, objetos y figuras de animales.
+- Como la red de la universidad no permite que los dispositivos se comuniquen entre sí, compartimos el internet desde la laptop para crear una red propia y así conectar la cámara, el ESP32 y el servidor.
+- Dana y yo recopilamos los resultados de todas las pruebas y los registros guardados en la base de datos.
+- Dana y yo seguimos trabajando en el artículo, agregando los resultados de las pruebas.
+- **Individual (en casa):** hice las mediciones del sensor y del buzzer, comparando la distancia real con la que registraba el ESP32, para completar la tabla de pruebas del sensor.
+- **Individual (en casa):** ajusté el código del ESP32 para que la alerta vuelva a sonar cuando un obstáculo se acerca o se aleja.
+- **Individual:** hice la presentación del proyecto.
+
+### Avances
+
+- Se completaron las pruebas finales del prototipo.
+- Avanzamos en el artículo con los resultados de las pruebas.
+- Se completó la tabla de pruebas del sensor y del buzzer con mediciones reales.
+- La alerta del buzzer ahora reacciona mejor a los obstáculos nuevos.
+- La presentación del proyecto quedó lista.
+
+### Dificultades encontradas
+
+- La red de la universidad seguía impidiendo la comunicación entre los dispositivos.
+- Durante las mediciones en casa, el buzzer parecía no sonar a 1 metro, porque el sensor detectaba primero los muebles o la pared que estaban más cerca.
+- La alerta solo volvía a sonar si el obstáculo se acercaba, por lo que algunos cambios no se notaban.
+- El puerto USB del ESP32 se trababa a veces y no dejaba subir el código ni abrir el Monitor Serial.
+
+### Soluciones implementadas
+
+- Creamos una red propia compartiendo el internet desde la laptop.
+- Hice las mediciones apuntando el sensor a un espacio libre, para que no detectara otros objetos.
+- Cambié el código para que cualquier cambio de distancia mayor a 15 cm vuelva a activar la alerta.
+- Desconecté y volví a conectar el USB para destrabar el puerto.
+
+### Decisiones técnicas
+
+- Usar la red compartida desde la laptop para las pruebas y la presentación.
+- Bajar el margen de movimiento a 15 cm y reactivar la alerta tanto al acercarse como al alejarse.
+- Registrar en la tabla del sensor el valor más frecuente y el rango observado, ya que las lecturas variaban algunos centímetros.
+
+### Pruebas efectuadas
+
+- Pruebas de reconocimiento con YOLO en distintos espacios de la universidad.
+- Mediciones del sensor a 10, 20, 30, 50 y 100 cm, observando también el comportamiento del buzzer.
+- Pruebas del comportamiento de las alertas: obstáculo quieto, en movimiento y sin conexión Wi-Fi.
+
+### Aprendizajes obtenidos
+
+- Aprendí a documentar las pruebas con datos reales, aunque no salgan perfectos.
+- Comprendí que el sensor ultrasónico siempre detecta el objeto más cercano, y que eso influye en cómo hay que hacer las pruebas.
+
+### Próximos pasos
+
+- Montar el stand al día siguiente para presentar el proyecto final.
