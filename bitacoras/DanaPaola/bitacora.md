@@ -540,3 +540,63 @@ Forma de trabajo: el proyecto lo trabajamos en equipo con Alejandra Quintanilla 
 - Escribir la justificación y el alcance y limitaciones.
 - Completar los resultados, la discusión y las conclusiones.
 - Renumerar todas las referencias cuando el artículo esté completo.
+
+## Semana 8 – Día 10 (17/11/2026)
+
+### Integrantes presentes
+
+- Dana Paola Aguirre Espinoza
+- Alejandra Quintanilla Muñiz
+- Joan Eras
+
+### Actividades realizadas
+
+- Con los lentes ya terminados, Alejandra y yo hicimos pruebas en la universidad para reunir la mayor cantidad de resultados posibles para el artículo.
+- Recorrimos distintos espacios del campus llevando los lentes y apuntamos la cámara hacia personas, objetos de uso cotidiano y figuras de animales.
+- Para que los dispositivos pudieran comunicarse, conectamos todo a una red compartida desde la laptop, porque con la red de la universidad no funciona.
+- En la página web revisamos lo que reconocía YOLO, con el nombre de cada objeto y su nivel de confianza, y tomamos capturas de los resultados.
+- Grabamos videos de algunos recorridos, como en un pasillo y en un baño de la universidad, mientras la página mostraba en vivo lo que veía la cámara.
+- Al final exportamos todas las detecciones de la base de datos a un archivo CSV.
+- Alejandra y yo seguimos trabajando en el artículo hasta terminarlo, agregando los resultados de las pruebas.
+- Al terminar, Alejandra se llevó el prototipo para hacer las mediciones del sensor.
+
+### Avances
+
+- Obtuvimos los datos necesarios para la parte de resultados del artículo.
+- La base de datos guardó 395 detecciones de la sesión: obstáculos, personas y animales.
+- Comprobamos que el prototipo terminado funciona en lugares reales y no solo en la mesa de trabajo.
+- El artículo quedó terminado con los resultados de las pruebas.
+
+### Dificultades encontradas
+
+- La red de la universidad sigue sin dejar que los dispositivos se comuniquen con el servidor.
+- No teníamos animales reales para probar, así que solo pudimos usar figuras de juguete.
+- YOLO confundió una máquina expendedora con un refrigerador.
+
+### Soluciones implementadas
+
+- Usamos el internet compartido desde la laptop durante todas las pruebas.
+- Usamos figuras de un caballo y una vaca para comprobar que el sistema reconociera animales.
+- Tomamos capturas de la página en cada prueba, ya que la imagen de la cámara se ve en vivo y no se guarda.
+
+### Decisiones técnicas
+
+- Usar las capturas, el CSV y los videos como evidencia de las pruebas para el artículo.
+- Registrar en una tabla el objeto, la clase que asignó YOLO y su nivel de confianza.
+
+### Pruebas efectuadas
+
+- Pruebas de reconocimiento con personas, objetos (mesa, bicicleta, lavamanos, microondas, botella, mouse, planta) y figuras de animales.
+- Pruebas de recorrido llevando los lentes, revisando al mismo tiempo la página web.
+- Revisión de los registros guardados en la base de datos y exportación a CSV.
+
+### Aprendizajes obtenidos
+
+- La cámara puede reconocer a una persona aunque el sensor todavía no la detecte; en esos casos la página la muestra como "Lejos".
+- YOLO da una confianza más baja cuando los objetos son pequeños o salen cortados en la imagen.
+- Probar en lugares reales muestra cosas que no se ven en las pruebas de mesa.
+
+### Próximos pasos
+
+- Hacer los últimos ajustes al artículo y entregarlo.
+- Montar el stand y presentar el proyecto final.
